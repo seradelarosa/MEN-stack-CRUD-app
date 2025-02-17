@@ -1,4 +1,16 @@
-const inventory = [
+const dotenv = require('dotenv');
+dotenv.config();
+
+const mongoose = require('mongoose');
+const Inventory = require('./models/inventory.js');
+
+mongoose.connect(process.env.MONGODB_URI);
+
+mongoose.connection.on('connected', () => {
+    console.log(`Connected on MongoDB ${mongoose.connection.name}`);
+});
+
+const seedItems = [
     { 
         name: "Typology Tinted Serum", 
         details: "A silicone-free, non-clogging tinted serum for light coverage and a natural, no-makeup finish. Formulated with vitamin C for radiance and squalane & aloe vera for deep, long-lasting hydration. 99% naturally derived. Vegan. Made in France.", 
@@ -8,7 +20,7 @@ const inventory = [
         image: "/img/makeup/tinted-serum.png"
     },
     { 
-        name: "Typology Tinted Concealer", 
+        name: "Typology Tinted Concealer",
         details: "This medium-high coverage tinted concealer is enriched with caffeine, niacinamide, and cornflower hydrolate to reduce the appearance of dark circles and puffiness, instantly and long term. It can also be used to conceal blemishes or redness. 97% naturally derived. Vegan. Made in France.", 
         price: 34.50,
         quantity: 3,
@@ -30,7 +42,19 @@ const inventory = [
         quantity: 3,
         category: "makeup",
         image: "/img/makeup/matte-powder.png"
-    },
+    }
 ];
 
-module.exports = inventory;
+async function seedInventory() {
+    try {
+        await Inventory.deleteMany(); // Clear existing items
+        await Inventory.insertMany(seedItems); // Insert new items
+        console.log('Inventory has been seeded!');
+        mongoose.connection.close();
+    } catch (err) {
+        console.log(err);
+        mongoose.connection.close();
+    }
+}
+
+seedInventory();

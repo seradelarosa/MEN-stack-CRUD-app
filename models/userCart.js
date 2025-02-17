@@ -8,6 +8,6 @@ const userCartSchema = new mongoose.Schema({
     category: String
 });
 
-const userCart = mongoose.model('userCart', userCartSchema);
+const UserCart = mongoose.model('userCart', userCartSchema);
 
-module.exports = userCart;
+module.exports = UserCart;

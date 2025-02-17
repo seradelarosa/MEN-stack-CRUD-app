@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const UserCart = require('./models/userCart.js');
-const inventory = require('./data/inventory.js');
+const Inventory = require('./models/inventory.js');
 
 const app = express();
 
@@ -16,9 +16,6 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected on MongoDB ${mongoose.connection.name}`);
 });
 
-const shopItem = require('./models/userCart.js')
-
-
 //=== middleware ========================================
 
 app.use(express.urlencoded({ extended: false }));
@@ -27,16 +24,22 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 //for styling
 const path = require('path');
-//for static inventory
+//for inventory images
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 //=== GETS ============================================== 
 
 // home page
-app.get('/', (req, res) => {
-    res.render('index.ejs', { inventory: inventory } );
+app.get('/', async (req, res) => {
+    //fetch all inventory items
+    const allItems = await Inventory.find();
+    res.render('index.ejs', { inventory: allItems });
+
+    if (!allItems) {
+        console.log(err);
+        res.status(500).send('Error fetching items');
+    };
 });
 
 //=======================================================
