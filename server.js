@@ -27,7 +27,6 @@ const path = require('path');
 //for inventory images
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 //=== GETS ============================================== 
 
 // home page
@@ -40,6 +39,18 @@ app.get('/', async (req, res) => {
         console.log(err);
         res.status(500).send('Error fetching items');
     };
+});
+
+//GET specific item
+app.get('/item/:id', async (req, res) => {
+    const item = await Inventory.findById(req.params.id);
+
+    if (!item) {
+        return res.status(404).send('Item not found');
+    }
+
+    res.render('item/details.ejs', { item });
+    console.log(item);
 });
 
 //=======================================================
