@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Express serves the static files from the public folder directly, so the CSS needs to be referenced like this -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>Sera's CRUDdy shop</title>
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+
+    <h2>Your Shopping Cart</h2>
+
+    <% if (cartItems.length === 0) { %>
+        <p>Your cart is empty.</p>
+    <% } else { %>
+        <ul>
+            <% cartItems.forEach(item => { %>
+                <li class="shop-item">
+                    <img src="<%= item.image %>" alt="<%= item.name %>" class="item-image">
+                    <div class="item-info">
+                        <h3><%= item.name %></h3>
+                        <p><%= item.details %></p>
+                        <p>Price: $<%= item.price %></p>
+                        <p>Quantity: <%= item.quantity %></p>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+    <% } %>
+</body>
+
+</html>
