@@ -10,9 +10,8 @@
 </head>
 
 <body>
-    <h1>Welcome to Sera's CRUDdy shop!</h1>
-    <p>An online shopping simulator app to get your fix without hurting your wallet.</p>
-
+    <%- include('partials/navbar') %>
+    
     <h2>Shop Items</h2>
     <ul>
         <% inventory.forEach(item => { %>
