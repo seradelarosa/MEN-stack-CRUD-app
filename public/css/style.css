@@ -1,0 +1,25 @@
+body {
+    background-color: pink;
+}
+
+/* Shop Item Layout */
+.shop-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.item-image {
+     /* Make a square */
+    width: 150px;
+    height: 150px;
+     /* Crops to fill the square */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Item information styling */
+.item-info {
+    padding-right: 90px;
+}
