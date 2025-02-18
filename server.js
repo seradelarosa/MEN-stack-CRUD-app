@@ -61,6 +61,7 @@ app.get('/cart', async (req, res) => {
 
 //=== POST ======================================================
 
+// add item to cart
 app.post('/add-to-cart/:id', async (req, res) => {
     const item = await Inventory.findById(req.params.id);
 
@@ -68,12 +69,15 @@ app.post('/add-to-cart/:id', async (req, res) => {
         return res.status(404).send('Item not found');
     }
 
+    // if quantity is not a number or empty, default to 1
+    const quantity = parseInt(req.body.quantity) || 1;
+
     // Create and save the cart item in one step
     await UserCart.create({
         name: item.name,
         details: item.details,
         price: item.price,
-        quantity: 1, // Default to 1
+        quantity: quantity,
         category: item.category,
         image: item.image
     });
@@ -84,6 +88,19 @@ app.post('/add-to-cart/:id', async (req, res) => {
     // redirect to the cart page and pass all cart items
     res.render('cart/cart.ejs', { cartItems });
 });
+
+//update quantity of an item in cart
+app.post('/cart/update/:id', async (req, res) => {
+    const itemId = req.params.id;
+    // default to 1 if invalid
+    const newQuantity = parseInt(req.body.quantity) || 1; 
+
+    await UserCart.findByIdAndUpdate(itemId, { quantity: newQuantity });
+
+    // refresh cart page
+    res.redirect('/cart'); 
+});
+
 
 //=== DELETE =====================================================
 
