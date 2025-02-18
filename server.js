@@ -16,6 +16,10 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected on MongoDB ${mongoose.connection.name}`);
 });
 
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Server is running...');
+});
+
 //=== middleware ========================================
 
 app.use(express.urlencoded({ extended: false }));
@@ -124,8 +128,6 @@ app.delete('/cart/:id', async (req, res) => {
 
 //=======================================================
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server is running...');
-});
+
 
 module.exports = app; 
