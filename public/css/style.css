@@ -1,5 +1,9 @@
 body {
     background-color: pink;
+    font-family: "Cute Font", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: x-large;
 }
 
 /* Shop Item Layout */
@@ -8,6 +12,8 @@ body {
     align-items: center;
     gap: 20px;
     margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.351);
+    margin-right: 3%;
 }
 
 .item-image {
@@ -29,6 +35,12 @@ nav {
     justify-content: space-between; /* Moves cart to the right */
     align-items: flex-start; /* Aligns all content to the top */
     padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.783);
+    border: rgb(254, 134, 184) dashed 3.5px;
+}
+
+h2 {
+    padding-left: 40px;
 }
 
 .left-section {
