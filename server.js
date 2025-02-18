@@ -52,12 +52,22 @@ app.get('/item/:id', async (req, res) => {
     res.render('item/details.ejs', { item });
 });
 
+// GET cart
 app.get('/cart', async (req, res) => {
     // pull all items from the userCart collection
     const cartItems = await UserCart.find();
 
     res.render('cart/cart.ejs', { cartItems });
 });
+
+// GET filter by categories
+app.get('/category/:category', async (req, res) => {
+    const category = req.params.category;
+
+    const inventory = await Inventory.find({ category: category });
+    res.render('index.ejs', { inventory });
+});
+
 
 //=== POST ======================================================
 
@@ -93,12 +103,12 @@ app.post('/add-to-cart/:id', async (req, res) => {
 app.post('/cart/update/:id', async (req, res) => {
     const itemId = req.params.id;
     // default to 1 if invalid
-    const newQuantity = parseInt(req.body.quantity) || 1; 
+    const newQuantity = parseInt(req.body.quantity) || 1;
 
     await UserCart.findByIdAndUpdate(itemId, { quantity: newQuantity });
 
     // refresh cart page
-    res.redirect('/cart'); 
+    res.redirect('/cart');
 });
 
 
@@ -107,7 +117,7 @@ app.post('/cart/update/:id', async (req, res) => {
 app.delete('/cart/:id', async (req, res) => {
     const itemId = req.params.id;
     console.log('Deleting item with ID:', itemId);
-    
+
     await UserCart.findByIdAndDelete(itemId);
     res.redirect('/cart');
 });
