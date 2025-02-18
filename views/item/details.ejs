@@ -24,9 +24,9 @@
                         <%= item.name %>
                     </h3>
                 </a>
-                <p>Price: $<%= item.price %>
+                <p>Details: <%= item.details %>
                 </p>
-                <p>Quantity: <%= item.quantity %>
+                <p>Price: $<%= item.price %>
                 </p>
                 <!-- Add to Cart Button -->
                 <form action="/add-to-cart/<%= item._id %>" method="POST">
