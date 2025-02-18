@@ -59,6 +59,8 @@ app.get('/cart', async (req, res) => {
     res.render('cart/cart.ejs', { cartItems });
 });
 
+//=== POST ======================================================
+
 app.post('/add-to-cart/:id', async (req, res) => {
     const item = await Inventory.findById(req.params.id);
 
@@ -81,6 +83,16 @@ app.post('/add-to-cart/:id', async (req, res) => {
 
     // redirect to the cart page and pass all cart items
     res.render('cart/cart.ejs', { cartItems });
+});
+
+//=== DELETE =====================================================
+
+app.delete('/cart/:id', async (req, res) => {
+    const itemId = req.params.id;
+    console.log('Deleting item with ID:', itemId);
+    
+    await UserCart.findByIdAndDelete(itemId);
+    res.redirect('/cart');
 });
 
 //=======================================================
