@@ -104,7 +104,7 @@ app.post('/add-to-cart/:id', async (req, res) => {
 });
 
 //update quantity of an item in cart
-app.post('/cart/update/:id', async (req, res) => {
+app.put('/cart/update/:id', async (req, res) => {
     const itemId = req.params.id;
     // default to 1 if invalid
     const newQuantity = parseInt(req.body.quantity) || 1;

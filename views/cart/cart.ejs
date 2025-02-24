@@ -30,7 +30,7 @@
                         <p><%= item.details %></p>
                         <p>Price: $<%= item.price %></p>
 
-                        <form action="/cart/update/<%= item._id %>" method="POST">
+                        <form action="/cart/update/<%= item._id %>?_method=PUT" method="POST">
                             <label for="quantity-<%= item._id %>">Quantity:</label>
                             <input type="number" name="quantity" id="quantity-<%= item._id %>" value="<%= item.quantity %>" min="1" max="5">
                             <button type="submit">Update</button>
